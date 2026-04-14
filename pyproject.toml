@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "churn-prediction-ecommerce"
+version = "2.0.0"
+description = "Pipeline empresarial de predicción de churn para E-Commerce - No Country Equipo 40"
+authors = [
+    {name = "No Country - Equipo 40", email = "equipo40@nocountry.tech"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+keywords = ["churn", "machine-learning", "ecommerce", "rfm", "xgboost"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+# ─── Black (Formateo de código) ─────────────────────────────
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.git
+  | \.venv
+  | data
+  | models
+  | notebooks
+)/
+'''
+
+# ─── isort (Ordenamiento de imports) ────────────────────────
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["src"]
+skip_glob = ["data/*", "models/*", "notebooks/*"]
+
+# ─── Pytest ─────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--verbose",
+    "--tb=short",
+    "--cov=src",
+    "--cov-report=term-missing",
+    "--cov-report=html:reports/coverage",
+    "--cov-fail-under=70",
+]
+markers = [
+    "slow: marks tests that are slow (use -m 'not slow' to skip)",
+    "integration: marks integration tests requiring external services",
+    "unit: marks fast unit tests",
+]
+
+# ─── Coverage ───────────────────────────────────────────────
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "tests/*",
+    "notebooks/*",
+    "pipelines/*",
+    "monitoring/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+
+# ─── Flake8 (vía setup.cfg, pero documentado aquí) ──────────
+# Usar: flake8 src/ --max-line-length=100 --extend-ignore=E203,W503

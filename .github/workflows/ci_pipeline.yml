@@ -1,0 +1,54 @@
+name: CI — Churn Prediction Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Tests Unitarios & Calidad de Código
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Instalar dependencias de desarrollo
+        run: |
+          pip install --upgrade pip
+          pip install -r proyectodechurndenocountry/requirements-dev.txt
+
+      - name: Verificar estilo de código (black)
+        run: |
+          black proyectodechurndenocountry/src/ proyectodechurndenocountry/pipelines/ \
+            --check --line-length=100
+
+      - name: Verificar imports (isort)
+        run: |
+          isort proyectodechurndenocountry/src/ proyectodechurndenocountry/pipelines/ \
+            --check-only --profile=black
+
+      - name: Linting (flake8)
+        run: |
+          flake8 proyectodechurndenocountry/src/ \
+            --max-line-length=100 --extend-ignore=E203,W503
+
+      - name: Ejecutar tests unitarios
+        run: |
+          cd proyectodechurndenocountry
+          pytest tests/unit/ -v --tb=short -m unit \
+            --cov=src --cov-report=term-missing
+
+      - name: Subir reporte de cobertura
+        uses: codecov/codecov-action@v4
+        if: always()
+        with:
+          fail_ci_if_error: false

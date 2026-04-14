@@ -1,0 +1,56 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  standard:
+    format: "%(asctime)s | %(levelname)-8s | %(name)-30s | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+  json:
+    class: logging.Formatter
+    format: '{"time": "%(asctime)s", "level": "%(levelname)s", "module": "%(name)s", "message": "%(message)s"}'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: standard
+    stream: ext://sys.stdout
+
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: standard
+    filename: logs/pipeline.log
+    maxBytes: 10485760  # 10 MB
+    backupCount: 5
+    encoding: utf8
+
+  error_file:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: json
+    filename: logs/errors.log
+    maxBytes: 5242880   # 5 MB
+    backupCount: 3
+    encoding: utf8
+
+root:
+  level: DEBUG
+  handlers: [console, file, error_file]
+
+loggers:
+  src.data:
+    level: DEBUG
+    propagate: true
+  src.features:
+    level: DEBUG
+    propagate: true
+  src.modeling:
+    level: INFO
+    propagate: true
+  src.export:
+    level: INFO
+    propagate: true
+  pipelines:
+    level: INFO
+    propagate: true
