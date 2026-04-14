@@ -109,7 +109,8 @@ def run(input_path: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Inferencia de Churn sobre nuevos datos.")
-    parser.add_argument("--input", required=False, default=cfg_default := "data/raw/online_retail_II.csv",
+    cfg_default = "data/raw/online_retail_II.csv"
+    parser.add_argument("--input", required=False, default=cfg_default,
                         help=f"Ruta al CSV de transacciones. Default: {cfg_default}")
     args = parser.parse_args()
     run(args.input)
