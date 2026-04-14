@@ -16,6 +16,12 @@
 
 ```
 proyectodechurndenocountry/
+├── 📁 Dashboard/                 # 🚀 WebApp Streamlit Enterprise
+│   └── webapp/                   # Interfaz de Inteligencia de Negocio
+│       ├── app.py                # Punto de entrada / Portada
+│       ├── data_loader.py        # Repositorio Supabase
+│       ├── components.py         # UI y Motor CSS
+│       └── pages/                # Vistas Analíticas
 │
 ├── 📁 config/                    # Configuración centralizada (YAML)
 │   ├── config.yaml               # Hiperparámetros, umbrales, rutas
