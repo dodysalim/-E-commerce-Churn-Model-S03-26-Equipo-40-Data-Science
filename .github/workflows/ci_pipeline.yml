@@ -24,26 +24,25 @@ jobs:
       - name: Instalar dependencias de desarrollo
         run: |
           pip install --upgrade pip
-          pip install -r proyectodechurndenocountry/requirements-dev.txt
+          pip install -r requirements-dev.txt
 
       - name: Verificar estilo de código (black)
         run: |
-          black proyectodechurndenocountry/src/ proyectodechurndenocountry/pipelines/ \
+          black src/ pipelines/ \
             --check --line-length=100
 
       - name: Verificar imports (isort)
         run: |
-          isort proyectodechurndenocountry/src/ proyectodechurndenocountry/pipelines/ \
+          isort src/ pipelines/ \
             --check-only --profile=black
 
       - name: Linting (flake8)
         run: |
-          flake8 proyectodechurndenocountry/src/ \
+          flake8 src/ \
             --max-line-length=100 --extend-ignore=E203,W503
 
       - name: Ejecutar tests unitarios
         run: |
-          cd proyectodechurndenocountry
           pytest tests/unit/ -v --tb=short -m unit \
             --cov=src --cov-report=term-missing
 
