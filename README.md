@@ -132,8 +132,6 @@ proyectodechurndenocountry/
 ├── 📁 monitoring/
 │   └── drift_detector.py         # KS Test + Evidently AI
 │
-├── presentacion_nocountry_final.pptx  # 🎤 Presentación 7 slides con notas
-├── guia_presentacion_nocountry.docx   # 📋 Guía positiva de presentación
 ├── Makefile
 ├── pyproject.toml
 ├── requirements.txt
