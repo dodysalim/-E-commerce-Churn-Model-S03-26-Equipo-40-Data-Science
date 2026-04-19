@@ -110,10 +110,6 @@ class SupabaseRepository:
 
 
 def get_repository() -> SupabaseRepository:
-    url = "https://ssripoziaecmbpexayez.supabase.co"
-    key = (
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
-        ".eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzcmlwb3ppYWVjbWJwZXhheWV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3ODAzNTAsImV4cCI6MjA5MTM1NjM1MH0"
-        ".RcUu0199tQxC2umCGYw8OLPHTnDByx_3kWn2ZRS5Mmo"
-    )
+    url = ""
+    key = ()
     return SupabaseRepository(url, key).connect()
