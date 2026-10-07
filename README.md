@@ -1,3 +1,25 @@
+# Churn Intelligence · Retención
+
+Proyecto colaborativo del equipo 40 de No Country. Este repositorio es un fork del trabajo del equipo.
+
+**Para revisar:** `notebooks, pipelines, src/modeling, tests/unit`.
+
+**Contexto:** Conservar autores y licencia del equipo. Las métricas publicadas no fueron reentrenadas en esta revisión; no afirmar ROI comercial observado.
+
+## Inicio
+
+Desde la raíz del repositorio, en un entorno virtual con sus datos disponibles:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Consulta [el caso de proyecto](docs/PORTFOLIO_CASE.md) para el alcance y los criterios de revisión.
+
+---
+
+## Documentación detallada existente
+
 # 📊 E-Commerce Churn Prediction Pipeline
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue?logo=python)](https://python.org)
