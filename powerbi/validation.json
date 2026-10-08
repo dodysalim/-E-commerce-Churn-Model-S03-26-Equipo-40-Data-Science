@@ -1,0 +1,10 @@
+{
+  "repo": "-E-commerce-Churn-Model-S03-26-Equipo-40-Data-Science",
+  "pages": 5,
+  "visuals": 54,
+  "tables": {
+    "Clientes": 800,
+    "Plan": 18
+  },
+  "status": "DEMOSTRACIÓN SINTÉTICA del Streamlit original · 800 clientes · no son predicciones de producción"
+}

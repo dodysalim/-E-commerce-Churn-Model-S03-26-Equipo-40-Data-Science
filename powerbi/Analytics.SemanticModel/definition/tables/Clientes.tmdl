@@ -1,0 +1,80 @@
+table Clientes
+
+	column 'customer_id'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column 'customer_level'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: customer_level
+
+	column 'risk_segment'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: risk_segment
+
+	column 'recency'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: recency
+
+	column 'frequency'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: frequency
+
+	column 'monetary'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: monetary
+
+	column 'rfm_score'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: rfm_score
+
+	column 'churn_probability'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: churn_probability
+
+	column 'lifetime_value'
+		dataType: double
+		summarizeBy: none
+		sourceColumn: lifetime_value
+
+	measure KPI_Clientes = COUNTROWS(Clientes)
+		formatString: #,0.00
+		displayFolder: Indicadores
+
+	measure KPI_Riesgo = AVERAGE(Clientes[churn_probability])
+		formatString: #,0.00
+		displayFolder: Indicadores
+
+	measure KPI_Valor = SUM(Clientes[monetary])
+		formatString: #,0.00
+		displayFolder: Indicadores
+
+	measure KPI_LTV = SUM(Clientes[lifetime_value])
+		formatString: #,0.00
+		displayFolder: Indicadores
+
+	measure KPI_Frecuencia = AVERAGE(Clientes[frequency])
+		formatString: #,0.00
+		displayFolder: Indicadores
+
+	measure KPI_Recencia = AVERAGE(Clientes[recency])
+		formatString: #,0.00
+		displayFolder: Indicadores
+
+	partition Clientes = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "Clientes.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"customer_id", type text}, {"customer_level", type text}, {"risk_segment", type text}, {"recency", type number}, {"frequency", type number}, {"monetary", type number}, {"rfm_score", type number}, {"churn_probability", type number}, {"lifetime_value", type number}}, "en-US")
+				in
+				    Typed

@@ -1,0 +1,265 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "table9",
+  "position": {
+    "x": 30,
+    "y": 570,
+    "z": 10,
+    "height": 260,
+    "width": 1220,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Plan"
+                    }
+                  },
+                  "Property": "customer_id"
+                }
+              },
+              "queryRef": "Plan.customer_id",
+              "nativeQueryRef": "customer_id",
+              "displayName": "customer_id",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Plan"
+                    }
+                  },
+                  "Property": "Estrategia"
+                }
+              },
+              "queryRef": "Plan.Estrategia",
+              "nativeQueryRef": "Estrategia",
+              "displayName": "Estrategia",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Plan"
+                    }
+                  },
+                  "Property": "Urgencia"
+                }
+              },
+              "queryRef": "Plan.Urgencia",
+              "nativeQueryRef": "Urgencia",
+              "displayName": "Urgencia",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Plan"
+                    }
+                  },
+                  "Property": "lifetime_value"
+                }
+              },
+              "queryRef": "Plan.lifetime_value",
+              "nativeQueryRef": "lifetime_value",
+              "displayName": "lifetime_value",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Plan"
+                    }
+                  },
+                  "Property": "churn_probability"
+                }
+              },
+              "queryRef": "Plan.churn_probability",
+              "nativeQueryRef": "churn_probability",
+              "displayName": "churn_probability",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Plan"
+                    }
+                  },
+                  "Property": "RetornoHipotetico"
+                }
+              },
+              "queryRef": "Plan.RetornoHipotetico",
+              "nativeQueryRef": "RetornoHipotetico",
+              "displayName": "RetornoHipotetico",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Plan"
+                    }
+                  },
+                  "Property": "InversionHipotetica"
+                }
+              },
+              "queryRef": "Plan.InversionHipotetica",
+              "nativeQueryRef": "InversionHipotetica",
+              "displayName": "InversionHipotetica",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Matriz de intervención'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#183047'"
+                    }
+                  }
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Segoe UI'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "transparency": {
+              "expr": {
+                "Literal": {
+                  "Value": "0D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E1E8F0'"
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualHeader": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
