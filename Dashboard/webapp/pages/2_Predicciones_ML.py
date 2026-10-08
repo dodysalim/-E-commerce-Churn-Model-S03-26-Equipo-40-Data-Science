@@ -8,6 +8,9 @@ from data_loader import _generate_demo_data
 
 st.set_page_config(page_title="Predicciones ML — Churn", page_icon="🤖", layout="wide")
 Theme.apply_global_css()
+if st.session_state.get("data_mode", "demo") == "demo":
+    st.warning("DEMOSTRACIÓN · datos sintéticos. Las tendencias y el ROI simulado no representan resultados observados.")
+
 
 with st.sidebar:
     st.markdown("""

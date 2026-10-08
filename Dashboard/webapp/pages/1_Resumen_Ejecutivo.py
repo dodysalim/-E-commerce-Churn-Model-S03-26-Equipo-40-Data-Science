@@ -8,6 +8,9 @@ from data_loader import _generate_demo_data
 
 st.set_page_config(page_title="Resumen Ejecutivo — Churn", page_icon="📋", layout="wide")
 Theme.apply_global_css()
+if st.session_state.get("data_mode", "demo") == "demo":
+    st.warning("DEMOSTRACIÓN · datos sintéticos. Las tendencias y el ROI simulado no representan resultados observados.")
+
 
 # ── Sidebar branding ──────────────────────────────────────────────────────────
 with st.sidebar:
@@ -68,8 +71,8 @@ churn    = float(df_global["overall_churn_rate_pct"].iloc[0])
 exposure = float(df_global["high_risk_monetary_exposure"].iloc[0])
 vips     = int(df_global["vips_at_risk_count"].iloc[0])
 
-with c1: UIComponents.kpi("Clientes Analizados", f"{total:,}", "+5.2% vs mes anterior", "blue")
-with c2: UIComponents.kpi("Tasa de Abandono", f"{churn:.1f}%", "↓ 0.1 pts vs último mes", "green")
+with c1: UIComponents.kpi("Clientes Analizados", f"{total:,}", "Histórico del conjunto cargado", "blue")
+with c2: UIComponents.kpi("Tasa de Abandono", f"{churn:.1f}%", "Sin comparación temporal validada", "green")
 with c3: UIComponents.kpi("Exposición Financiera", f"${exposure:,.0f}", "⚠️ Clientes Alto Riesgo", "yellow")
 with c4: UIComponents.kpi("VIPs en Riesgo", f"{vips}", "🚨 Atención inmediata", "red")
 
@@ -94,7 +97,7 @@ with col3:
         "Mes":        mock_dates,
         "Churn Rate": [4.8, 4.6, 4.5, 4.3, 4.3, round(churn, 1)],
     })
-    fig = ChartFactory.area(mock_trend, "Mes", "Churn Rate", title="📉 Tendencia Histórica de Churn")
+    fig = ChartFactory.area(mock_trend, "Mes", "Churn Rate", title="📉 Escenario ilustrativo de churn (simulado)")
     st.plotly_chart(fig, use_container_width=True)
 
 # ── Charts Row 2 ──────────────────────────────────────────────────────────────

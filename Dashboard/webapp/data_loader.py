@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+from pathlib import Path
 from supabase import create_client, Client
 import pandas as pd
 import numpy as np
@@ -8,7 +11,7 @@ import streamlit as st
 # ──────────────────────────────────────────────
 def _generate_demo_data():
     """Genera datos realistas para demostración offline."""
-    np.random.seed(42)
+    rng = np.random.default_rng(42)
     N = 800
 
     levels   = ["VIP Platino", "VIP Oro", "Cliente Activo", "Cliente Ocasional", "Cliente Inactivo"]
@@ -41,14 +44,14 @@ def _generate_demo_data():
     # ── v_value_risk_matrix ──────────────────────
     risk_df = pd.DataFrame({
         "customer_id":    [f"C{str(i).zfill(4)}" for i in range(N)],
-        "customer_level": np.random.choice(levels, N, p=[0.06, 0.15, 0.35, 0.28, 0.16]),
-        "risk_segment":   np.random.choice(segments, N, p=[0.25, 0.45, 0.30]),
-        "recency":        np.random.randint(1, 180, N),
-        "frequency":      np.random.randint(1, 50, N),
-        "monetary":       np.random.lognormal(7.5, 1.2, N),
-        "rfm_score":      np.random.randint(1, 6, N),
-        "churn_probability": np.random.beta(2, 5, N) * 100,
-        "lifetime_value": np.random.lognormal(8.0, 1.1, N),
+        "customer_level": rng.choice(levels, N, p=[0.06, 0.15, 0.35, 0.28, 0.16]),
+        "risk_segment":   rng.choice(segments, N, p=[0.25, 0.45, 0.30]),
+        "recency":        rng.integers(1, 180, N),
+        "frequency":      rng.integers(1, 50, N),
+        "monetary":       rng.lognormal(7.5, 1.2, N),
+        "rfm_score":      rng.integers(1, 6, N),
+        "churn_probability": rng.beta(2, 5, N) * 100,
+        "lifetime_value": rng.lognormal(8.0, 1.1, N),
     })
     risk_df["churn_probability"] = risk_df["churn_probability"].clip(1, 99).round(1)
 
@@ -71,6 +74,9 @@ class SupabaseRepository:
         self._demo_mode = False
 
     def connect(self):
+        if not self.url or not self.key:
+            self._demo_mode = True
+            return self
         try:
             self.client = create_client(self.url, self.key)
         except Exception:
@@ -96,20 +102,26 @@ class SupabaseRepository:
 
     @staticmethod
     def _normalize(df: pd.DataFrame):
-        """Convierte valores estandarizados (Z-Score) a rangos reales de negocio."""
-        if "monetary"        in df.columns: df["monetary"]        = (df["monetary"].abs()        * 1500) + 100
-        if "avg_monetary"    in df.columns: df["avg_monetary"]    = (df["avg_monetary"].abs()    * 1500) + 100
-        if "lifetime_value"  in df.columns: df["lifetime_value"]  = (df["lifetime_value"].abs()  * 1500) + 100
-        if "recency"         in df.columns: df["recency"]         = (df["recency"].abs()         * 30).astype(int) + 1
-        if "frequency"       in df.columns: df["frequency"]       = (df["frequency"].abs()       * 10).astype(int) + 1
-        if "rfm_score"       in df.columns: df["rfm_score"]       = (df["rfm_score"].abs()       * 5).astype(int) + 1
+        """Preserve business units; only probability [0,1] is displayed as percent.
+
+        SQL views already return *_pct percentages. They must not be multiplied
+        again. A scaler cannot be inverted without its fitted parameters.
+        """
         if "churn_probability" in df.columns:
-            df["churn_probability"] = df["churn_probability"].apply(lambda x: x if x > 1 else x * 100)
-        if "churn_risk_pct"  in df.columns:
-            df["churn_risk_pct"]    = df["churn_risk_pct"].apply(lambda x: x if x > 1 else x * 100)
+            values = pd.to_numeric(df["churn_probability"], errors="raise")
+            if values.dropna().between(0, 1).all():
+                df["churn_probability"] = values * 100
+            else:
+                raise ValueError("churn_probability must be in [0, 1] in the SQL source")
 
 
 def get_repository() -> SupabaseRepository:
-    url = ""
-    key = ()
+    load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+    url = os.getenv("SUPABASE_URL", "")
+    key = os.getenv("SUPABASE_KEY", "")
+    try:
+        url = st.secrets.get("SUPABASE_URL", url)
+        key = st.secrets.get("SUPABASE_KEY", key)
+    except (FileNotFoundError, st.errors.StreamlitSecretNotFoundError):
+        pass
     return SupabaseRepository(url, key).connect()

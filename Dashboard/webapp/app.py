@@ -70,7 +70,7 @@ st.markdown("""
     </h1>
     <p style="color:#64748B; font-size:1.05rem; max-width:620px; margin:20px auto; line-height:1.7;">
         Motor analítico predictivo que detecta clústeres de clientes en riesgo de abandono
-        usando Machine Learning, y genera estrategias de retención personalizadas con impacto financiero real.
+        usando Machine Learning, y genera estrategias de retención personalizadas con hipótesis financieras que requieren validación.
     </p>
 </div>
 """, unsafe_allow_html=True)
@@ -148,9 +148,16 @@ with st.spinner("Inicializando plataforma de datos…"):
     # Fallback a datos demo si Supabase no está disponible
     if df_dist.empty or df_global.empty or df_risk.empty:
         df_dist, df_global, df_risk, df_vips = _generate_demo_data()
-        st.toast("📊 Modo demo activado — datos simulados realistas cargados", icon="ℹ️")
+        st.session_state["data_mode"] = "demo"
+    else:
+        st.session_state["data_mode"] = "supabase"
 
     st.session_state["df_global"] = df_global
     st.session_state["df_dist"]   = df_dist
     st.session_state["df_risk"]   = df_risk
     st.session_state["df_vips"]   = df_vips
+
+if st.session_state.get("data_mode") == "demo":
+    st.warning("DEMOSTRACIÓN · datos sintéticos; no son predicciones ni resultados comerciales reales.")
+else:
+    st.caption("Fuente: vistas SQL de Supabase. Los escenarios de retención son hipótesis.")
