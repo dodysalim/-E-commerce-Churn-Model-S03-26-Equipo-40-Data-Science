@@ -6,7 +6,7 @@
 
 NO COUNTRY · EQUIPO 40 · Python · RFM · XGBoost · Streamlit
 
-[Portafolio](https://dodysalim.github.io/) · [Caso y alcance](docs/PORTFOLIO_CASE.md) · [Verificación](docs/VALIDATION.md)
+[No Country Showcase](https://nocountry.tech/showcase/simulacion-laboral-marzo-2026/equipo-40-data-science) · [Portafolio](https://dodysalim.github.io/) · [Caso y alcance](docs/PORTFOLIO_CASE.md) · [Verificación](docs/VALIDATION.md)
 
 ## La pregunta
 
@@ -69,5 +69,17 @@ python -m pytest tests -q
 ## Autoría
 
 Simulación No Country, Sprint 3, Equipo 40. Se mantiene la atribución colectiva y la documentación original.
+
+
+### Equipo · Marzo 2026
+
+| Integrante | Rol publicado |
+| --- | --- |
+| Lucel | Data |
+| Junior Alexis | Data Scientist |
+| Geyson David | Data Scientist |
+| Dody | Data analyst |
+
+Créditos basados en el [showcase oficial](https://nocountry.tech/showcase/simulacion-laboral-marzo-2026/equipo-40-data-science). Se conserva la autoría colectiva.
 
 [Documentación anterior](docs/ORIGINAL_README.md), conservada como referencia histórica.
