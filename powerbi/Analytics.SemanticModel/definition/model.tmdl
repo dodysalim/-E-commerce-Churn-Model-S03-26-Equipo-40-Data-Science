@@ -1,8 +1,0 @@
-model Model
-	culture: es-ES
-	defaultPowerBIDataSourceVersion: powerBI_V3
-	sourceQueryCulture: en-US
-
-ref table Clientes
-ref table Plan
-ref expression DataFolder
