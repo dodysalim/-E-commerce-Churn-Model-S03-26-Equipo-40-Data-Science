@@ -11,4 +11,3 @@ El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y [
 - **Corregido:** conflicto entre `numpy<2` y versiones recientes de `pyarrow` que rompía la página *Plan de Acción*; `pyarrow` queda fijado a `<20`.
 - Verificación: 25 pruebas aprobadas y las 6 páginas del dashboard abren sin excepciones en modo demo.
 - README con insignias de CI y versión.
-
