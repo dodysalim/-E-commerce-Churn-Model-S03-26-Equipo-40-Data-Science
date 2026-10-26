@@ -1,0 +1,122 @@
+# ============================================================
+#  E-Commerce Churn Prediction — .gitignore Enterprise
+# ============================================================
+
+# ─── Variables de Entorno (NUNCA versionar) ──────────────────
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ─── Datos (dataset grande y procesados) ────────────────────
+data/raw/*.csv
+data/raw/*.xlsx
+data/raw/*.parquet
+data/interim/
+data/processed/
+data/exports/
+
+# ─── Modelos entrenados (artefactos binarios) ───────────────
+models/registry/
+models/champion/
+*.pkl
+*.joblib
+*.h5
+*.onnx
+
+# ─── Logs ───────────────────────────────────────────────────
+logs/
+*.log
+
+# ─── Python ─────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ─── Entornos Virtuales ──────────────────────────────────────
+.venv/
+venv/
+ENV/
+env/
+.env/
+env.bak/
+venv.bak/
+
+# ─── Jupyter Notebooks ──────────────────────────────────────
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+notebooks/.ipynb_checkpoints/
+
+# ─── Tests y Cobertura ──────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+reports/coverage/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# ─── IDEs y Editores ────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Reportes generados ─────────────────────────────────────
+reports/figures/
+reports/*.html
+reports/coverage/
+
+# ─── Docker ─────────────────────────────────────────────────
+.dockerignore
+
+# ─── MLflow (si se usa en el futuro) ────────────────────────
+mlruns/
+mlflow.db
+
+# ─── Optuna (si se usa) ─────────────────────────────────────
+optuna.db
+optuna_storage/
+
+# ─── Archivos temporales ────────────────────────────────────
+*.tmp
+*.bak
+*.orig
+temp/
+tmp/
+
+# ─── Lo que SÍ se versiona (excepciones) ────────────────────
+# data/raw/.gitkeep  → se versiona para mantener la carpeta en git
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!data/exports/.gitkeep
+!models/.gitkeep
+!logs/.gitkeep

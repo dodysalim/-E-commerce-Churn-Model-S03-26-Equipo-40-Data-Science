@@ -1,24 +1,42 @@
-![Churn Intelligence](docs/cover.svg)
+<p align="center"><img src="https://dodysalim.github.io/assets/project-covers/churn.webp" alt="Churn Intelligence" width="100%"></p>
 
-# Churn Intelligence
+<h1 align="center">Churn Intelligence</h1>
 
-**Del comportamiento de compra a segmentos de riesgo y escenarios de retención.**
+<p align="center"><b>Del comportamiento de compra a segmentos de riesgo y escenarios de retención.</b></p>
 
-NO COUNTRY · EQUIPO 40 · Python · RFM · XGBoost · Streamlit
+<p align="center">
+<img src="https://img.shields.io/badge/No_Country_%C2%B7_Equipo_40_%C2%B7_Marzo_2026-75E6CE?style=for-the-badge&labelColor=0b1222" alt="No Country · Equipo 40 · Marzo 2026">
+</p>
 
-[No Country Showcase](https://nocountry.tech/showcase/simulacion-laboral-marzo-2026/equipo-40-data-science) · [Portafolio](https://dodysalim.github.io/) · [Caso y alcance](docs/PORTFOLIO_CASE.md) · [Verificación](docs/VALIDATION.md)
+<p align="center">
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"> <img src="https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white" alt="pandas"> <img src="https://img.shields.io/badge/XGBoost-1F6FEB?style=flat-square&logoColor=white" alt="XGBoost"> <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit"> <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white" alt="Supabase"> <img src="https://img.shields.io/badge/Power_BI-F2C811?style=flat-square&logoColor=black" alt="Power BI">
+</p>
 
-## La pregunta
+<p align="center"><a href="https://nocountry.tech/showcase/simulacion-laboral-marzo-2026/equipo-40-data-science"><b>🏆 Showcase No Country</b></a> · <a href="https://dodysalim.github.io/"><b>🌐 Portafolio</b></a> · <a href="docs/PORTFOLIO_CASE.md"><b>📄 Caso de estudio</b></a></p>
+
+---
+
+## 📌 Resumen en 30 segundos
+
+| | |
+| --- | --- |
+| **🎯 Problema** | Detectar clientes de e-commerce con señales de abandono y el valor que está en riesgo. |
+| **🛠️ Solución** | Segmentación RFM, etiquetado de churn y modelo XGBoost, con pipelines de entrenamiento e inferencia. |
+| **📈 Entregables** | Dashboard Streamlit de 5 vistas (modo demo sin credenciales) y Power BI para PC y móvil. |
+| **🧪 Calidad** | 25 pruebas automatizadas aprobadas. |
+| **👤 Mi rol** | Data Analyst en equipo multidisciplinario de 4 personas. |
+
+## ❓ La pregunta de negocio
 
 ¿Qué clientes muestran señales de abandono y qué segmentos concentran el valor expuesto?
 
-## Qué puedes revisar
+## ✨ Qué incluye
 
 - Preprocesamiento de transacciones, RFM y etiquetado de churn.
 - Pipelines de entrenamiento, evaluación y exportación.
 - Dashboard de cinco vistas, con demostración sintética identificada.
 
-## Inicio local
+## 🚀 Cómo ejecutarlo
 
 Usa Python 3.11 o 3.12 en un entorno independiente. Desde la raíz:
 
@@ -36,15 +54,15 @@ Después de configurar los datos:
 python -m streamlit run Dashboard/webapp/app.py
 ```
 
-## Datos y configuración
+## 🗂️ Datos y configuración
 
 La demostración funciona sin Supabase con 800 clientes sintéticos. Para usar las vistas reales, configura SUPABASE_URL y SUPABASE_KEY (clave de lectura con RLS). Los importes conservan las unidades de origen.
 
-## Power BI · PC y móvil
+## 📊 Power BI · PC y móvil
 
 [Archivos e instrucciones](powerbi/README.md). Descarga el repositorio completo y abre `powerbi/Abrir-PowerBI.bat` en Windows; después pulsa **Actualizar**. Incluye A4 horizontal a tamaño real (100 %) y diseño móvil vertical. El archivo `.pbip` necesita sus carpetas Report, SemanticModel y data.
 
-## Recorrido por el código
+## 🧭 Estructura del repositorio
 
 | Ruta | Qué contiene |
 | --- | --- |
@@ -54,7 +72,7 @@ La demostración funciona sin Supabase con 800 clientes sintéticos. Para usar l
 | [sql/](sql/) | Esquema y vistas de Supabase |
 | [tests/](tests/) | Pruebas unitarias |
 
-## Comprobación y alcance
+## ✅ Calidad y alcance
 
 25 pruebas aprobadas, incluidas cinco regresiones de datos del dashboard. Inicio y cinco páginas probados en modo demo sin excepciones.
 
@@ -66,7 +84,7 @@ Para repetir las pruebas desde la raíz:
 python -m pytest tests -q
 ```
 
-## Autoría
+## 👥 Autoría
 
 Simulación No Country, Sprint 3, Equipo 40. Se mantiene la atribución colectiva y la documentación original.
 
@@ -83,3 +101,10 @@ Simulación No Country, Sprint 3, Equipo 40. Se mantiene la atribución colectiv
 Créditos basados en el [showcase oficial](https://nocountry.tech/showcase/simulacion-laboral-marzo-2026/equipo-40-data-science). Se conserva la autoría colectiva.
 
 [Documentación anterior](docs/ORIGINAL_README.md), conservada como referencia histórica.
+
+---
+
+<p align="center">
+<b>Dody Dueñas Remache</b> · Analista de Datos / Data Scientist<br>
+<a href="https://dodysalim.github.io/">Portafolio</a> · <a href="https://github.com/dodysalim">GitHub</a> · <a href="https://www.linkedin.com/in/dody-duenas/">LinkedIn</a> · <a href="mailto:dodydurema67@gmail.com">dodydurema67@gmail.com</a>
+</p>

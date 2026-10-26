@@ -1,0 +1,117 @@
+# ============================================================
+#  E-Commerce Churn Prediction — Configuración Central
+#  Proyecto: proyectodechurndenocountry | No Country Team 40
+# ============================================================
+
+project:
+  name: "E-Commerce Churn Prediction"
+  team: "No Country - Equipo 40"
+  version: "2.0.0"
+
+# ─── Rutas de Datos ────────────────────────────────────────
+paths:
+  raw_data: "data/raw/online_retail_II.csv"
+  interim_cleaned: "data/interim/cleaned_transactions.parquet"
+  interim_rfm: "data/interim/rfm_raw.parquet"
+  processed_rfm_churn: "data/processed/rfm_with_churn.parquet"
+  processed_final: "data/processed/final_customer_results.parquet"
+  train_test_dir: "data/processed/train_test_splits"
+  exports_dir: "data/exports"
+  models_registry: "models/registry"
+  models_champion: "models/champion"
+  reports_figures: "reports/figures"
+
+# ─── Definición de Churn ────────────────────────────────────
+churn:
+  inactivity_threshold_days: 90    # Días de inactividad para clasificar como churn
+  high_risk_threshold: 0.70        # Probabilidad >= 70% → Riesgo Muy Alto
+  medium_risk_threshold: 0.40      # Probabilidad >= 40% → Riesgo Medio
+  # Por debajo de medium → Estable (Riesgo Bajo)
+
+# ─── Feature Engineering ────────────────────────────────────
+features:
+  rfm:
+    - "Recency"
+    - "Frequency"
+    - "Monetary"
+  advanced:
+    - "AvgTicket"
+    - "DaysBetweenPurchases"
+    - "MonetaryStdDev"
+    - "UniqueProducts"
+    - "PeakHourBuyer"
+  use_log_transform: true      # Log1p en Monetary y Frequency
+  clip_outliers_quantile: 0.99 # Clipear outliers al percentil 99
+
+# ─── Preprocesamiento ────────────────────────────────────────
+preprocessing:
+  drop_cancelled_invoices: true   # Invoices que empiezan con 'C'
+  drop_negative_quantity: true
+  drop_negative_price: true
+  min_transactions_per_customer: 1
+
+# ─── Modelado ───────────────────────────────────────────────
+modeling:
+  test_size: 0.20
+  random_state: 42
+  cv_folds: 5
+  primary_metric: "recall"     # Métrica principal para selección del modelo
+  handle_imbalance: "class_weight"  # Opciones: "class_weight", "smote", "none"
+
+  models:
+    random_forest:
+      enabled: true
+      n_estimators: 200
+      max_depth: 10
+      class_weight: "balanced"
+      n_jobs: -1
+
+    logistic_regression:
+      enabled: true
+      max_iter: 1000
+      solver: "lbfgs"
+      class_weight: "balanced"
+
+    xgboost:
+      enabled: true
+      eval_metric: "logloss"
+      scale_pos_weight: null   # Se calcula dinámicamente si use_dynamic_weight: true
+      use_dynamic_weight: true
+      n_estimators: 300
+      max_depth: 6
+      learning_rate: 0.05
+      subsample: 0.8
+
+  hyperparameter_tuning:
+    enabled: false             # Activar para optimización con Optuna
+    n_trials: 50
+    timeout_seconds: 600
+
+# ─── SHAP ───────────────────────────────────────────────────
+interpretability:
+  shap:
+    enabled: true
+    max_display: 20            # Número de features en el summary plot
+    sample_size: 500           # Muestra para SHAP (rendimiento)
+
+# ─── Segmentación RFM ───────────────────────────────────────
+segmentation:
+  rfm_quartiles: 4
+  vip_rfm_threshold: 9        # RFM score >= 9 → VIP / Champion
+  loyal_rfm_threshold: 6      # RFM score >= 6 → Leales / Prometedores
+
+# ─── Export ─────────────────────────────────────────────────
+export:
+  supabase:
+    table_name: "customer_churn_results"
+    chunk_size: 500
+    on_conflict: "customer_id"   # Columna para upsert
+  csv:
+    encoding: "utf-8"
+    separator: ","
+
+# ─── Logging ─────────────────────────────────────────────────
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+  file: "logs/pipeline.log"
