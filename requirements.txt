@@ -7,7 +7,7 @@
 # ─── Core científico ────────────────────────────────────────
 numpy>=1.26.0,<2.0.0
 pandas>=2.2.0,<3.0.0
-pyarrow>=15.0.0          # Soporte Parquet
+pyarrow>=15.0.0,<20.0.0  # Soporte Parquet (compatible con numpy<2)
 
 # ─── Machine Learning ───────────────────────────────────────
 scikit-learn>=1.4.0,<2.0.0
@@ -50,3 +50,6 @@ evidently>=0.4.30
 # ─── Utilidades ─────────────────────────────────────────────
 tqdm>=4.66.0              # Barras de progreso
 python-dateutil>=2.9.0
+
+# Dashboard
+streamlit>=1.32.0

@@ -12,6 +12,10 @@
 <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"> <img src="https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white" alt="pandas"> <img src="https://img.shields.io/badge/XGBoost-1F6FEB?style=flat-square&logoColor=white" alt="XGBoost"> <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white" alt="Streamlit"> <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=flat-square&logo=supabase&logoColor=white" alt="Supabase"> <img src="https://img.shields.io/badge/Power_BI-F2C811?style=flat-square&logoColor=black" alt="Power BI">
 </p>
 
+<p align="center">
+<a href="https://github.com/dodysalim/-E-commerce-Churn-Model-S03-26-Equipo-40-Data-Science/actions"><img src="https://github.com/dodysalim/-E-commerce-Churn-Model-S03-26-Equipo-40-Data-Science/actions/workflows/ci_pipeline.yml/badge.svg" alt="CI"></a> <img src="https://img.shields.io/badge/versión-1.1.0-8F7BFF?style=flat-square" alt="Versión 1.1.0">
+</p>
+
 <p align="center"><a href="https://nocountry.tech/showcase/simulacion-laboral-marzo-2026/equipo-40-data-science"><b>🏆 Showcase No Country</b></a> · <a href="https://dodysalim.github.io/"><b>🌐 Portafolio</b></a> · <a href="docs/PORTFOLIO_CASE.md"><b>📄 Caso de estudio</b></a></p>
 
 ---
@@ -74,7 +78,7 @@ La demostración funciona sin Supabase con 800 clientes sintéticos. Para usar l
 
 ## ✅ Calidad y alcance
 
-25 pruebas aprobadas, incluidas cinco regresiones de datos del dashboard. Inicio y cinco páginas probados en modo demo sin excepciones.
+25 pruebas aprobadas, incluidas cinco regresiones de datos del dashboard. Inicio y las cinco páginas de análisis probados en modo demo sin excepciones (26-10-2026).
 
 Los datos demo, tendencias ilustrativas y ROI de escenarios no son resultados observados. No se repitió el entrenamiento sobre Online Retail II ni se comprobó Supabase en vivo.
 
