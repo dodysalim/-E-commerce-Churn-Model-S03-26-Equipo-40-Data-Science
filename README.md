@@ -74,6 +74,12 @@ Después de configurar los datos:
 python -m streamlit run Dashboard/webapp/app.py
 ```
 
+## ☁️ Publicar el dashboard gratis
+
+[![Deploy en Streamlit Cloud](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/deploy?repository=dodysalim/-E-commerce-Churn-Model-S03-26-Equipo-40-Data-Science&branch=main&mainModule=Dashboard/webapp/app.py)
+
+Un clic abre Streamlit Community Cloud con este repositorio y `Dashboard/webapp/app.py` preconfigurados (dependencias: `requirements.txt`). Funciona sin credenciales: modo demo con 800 clientes sintéticos.
+
 ## 🗂️ Datos y configuración
 
 La demostración funciona sin Supabase con 800 clientes sintéticos. Para usar las vistas reales, configura SUPABASE_URL y SUPABASE_KEY (clave de lectura con RLS). Los importes conservan las unidades de origen.
