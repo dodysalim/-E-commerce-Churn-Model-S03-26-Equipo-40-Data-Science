@@ -47,7 +47,9 @@ class SupabaseConnector:
 
         self.chunk_size = chunk_size
         self._url = os.environ.get("SUPABASE_URL")
-        self._key = os.environ.get("SUPABASE_KEY")
+        # El pipeline escribe, así que usa service_role (salta RLS).
+        # La ANON key es solo para el dashboard (lectura).
+        self._key = os.environ.get("SUPABASE_SERVICE_KEY")
         self._client = None
 
     def _get_client(self):
@@ -57,7 +59,7 @@ class SupabaseConnector:
 
         if not self._url or not self._key:
             raise ValueError(
-                "SUPABASE_URL y SUPABASE_KEY no están configurados.\n"
+                "SUPABASE_URL y SUPABASE_SERVICE_KEY no están configurados.\n"
                 "Crea un archivo .env con estas variables o expórtalas manualmente."
             )
 

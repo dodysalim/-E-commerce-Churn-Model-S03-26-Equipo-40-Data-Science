@@ -82,7 +82,7 @@ Un clic abre Streamlit Community Cloud con este repositorio y `Dashboard/webapp/
 
 ## 🗂️ Datos y configuración
 
-La demostración funciona sin Supabase con 800 clientes sintéticos. Para usar las vistas reales, configura SUPABASE_URL y SUPABASE_KEY (clave de lectura con RLS). Los importes conservan las unidades de origen.
+La demostración funciona sin Supabase con 800 clientes sintéticos. Para usar las vistas reales, configura SUPABASE_URL y SUPABASE_KEY (anon, solo lectura con RLS) para el dashboard, y SUPABASE_SERVICE_KEY (secreta) para el pipeline que escribe. Los importes conservan las unidades de origen.
 
 ## 📊 Power BI · PC y móvil
 

@@ -10,9 +10,10 @@ def get_supabase_client() -> Client:
     Inicializa el cliente de Supabase usando variables de entorno.
     """
     url = os.environ.get("SUPABASE_URL")
-    key = os.environ.get("SUPABASE_KEY")
+    # Escritura desde el pipeline: service_role (la anon key ya no puede escribir).
+    key = os.environ.get("SUPABASE_SERVICE_KEY")
     if not url or not key:
-        raise ValueError("SUPABASE_URL y SUPABASE_KEY deben estar presentes en el archivo .env")
+        raise ValueError("SUPABASE_URL y SUPABASE_SERVICE_KEY deben estar presentes en el archivo .env")
     return create_client(url, key)
 
 def export_dataframe_to_supabase(df: pd.DataFrame, table_name: str):
@@ -35,7 +36,8 @@ def export_dataframe_to_supabase(df: pd.DataFrame, table_name: str):
         chunk_size = 500
         for i in range(0, len(data), chunk_size):
             chunk = data[i:i + chunk_size]
-            response = supabase.table(table_name).insert(chunk).execute()
+            # upsert: re-ejecutar el pipeline no duplica filas
+            response = supabase.table(table_name).upsert(chunk, on_conflict="customer_id").execute()
         
         print("Exportación completada exitosamente.")
     except Exception as e:

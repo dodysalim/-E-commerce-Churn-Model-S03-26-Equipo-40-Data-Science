@@ -8,7 +8,7 @@ Fecha: 7 de octubre de 2026 (Ecuador). Entorno local Python 3.12.14. Las depende
 
 ## Dependencias externas y límites
 
-La demostración funciona sin Supabase con 800 clientes sintéticos. Para usar las vistas reales, configura SUPABASE_URL y SUPABASE_KEY (clave de lectura con RLS). Los importes conservan las unidades de origen.
+La demostración funciona sin Supabase con 800 clientes sintéticos. Para usar las vistas reales, configura SUPABASE_URL y SUPABASE_KEY (anon, solo lectura con RLS) para el dashboard, y SUPABASE_SERVICE_KEY (secreta) para el pipeline que escribe. Los importes conservan las unidades de origen.
 
 Los datos demo, tendencias ilustrativas y ROI de escenarios no son resultados observados. No se repitió el entrenamiento sobre Online Retail II ni se comprobó Supabase en vivo.
 
