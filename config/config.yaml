@@ -23,7 +23,11 @@ paths:
 
 # ─── Definición de Churn ────────────────────────────────────
 churn:
-  inactivity_threshold_days: 90    # Días de inactividad para clasificar como churn
+  # Churn = sin compra en (cutoff_date, cutoff_date + horizon_days].
+  # Las features solo usan transacciones <= cutoff_date (evita fuga de Recency).
+  cutoff_date: "2011-09-09"        # Corte entre periodo observado y de predicción
+  horizon_days: 90                 # Ventana futura para declarar churn
+  inactivity_threshold_days: 90    # Días de inactividad (solo ChurnLabeler.transform, legado)
   high_risk_threshold: 0.70        # Probabilidad >= 70% → Riesgo Muy Alto
   medium_risk_threshold: 0.40      # Probabilidad >= 40% → Riesgo Medio
   # Por debajo de medium → Estable (Riesgo Bajo)

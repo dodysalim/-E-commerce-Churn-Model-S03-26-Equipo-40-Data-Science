@@ -101,6 +101,69 @@ class ChurnLabeler:
         """Retorna el reporte de balance de clases del último transform."""
         return self._report
 
+    def label_future_window(
+        self,
+        transactions: pd.DataFrame,
+        rfm_df: pd.DataFrame,
+        cutoff: pd.Timestamp,
+        horizon_days: int,
+    ) -> pd.DataFrame:
+        """
+        Etiqueta churn con una ventana futura, sin usar la recencia.
+
+        Un cliente es churn (1) si no compra en (cutoff, cutoff + horizon_days].
+        El RFM de entrada debe construirse solo con transacciones <= cutoff,
+        así las features no ven el periodo que se intenta predecir.
+
+        Parámetros
+        ----------
+        transactions : pd.DataFrame
+            Transacciones limpias completas, con 'Customer ID' e 'InvoiceDate'.
+        rfm_df : pd.DataFrame
+            RFM construido con transacciones <= cutoff.
+        cutoff : pd.Timestamp
+            Fecha de corte entre el periodo observado y el de predicción.
+        horizon_days : int
+            Tamaño de la ventana futura en días.
+
+        Retorna
+        -------
+        pd.DataFrame
+            Copia de rfm_df con columna 'CHURN' (0 o 1).
+        """
+        if "Customer ID" not in rfm_df.columns:
+            raise ValueError("El RFM debe incluir la columna 'Customer ID'.")
+
+        horizon_end = cutoff + pd.Timedelta(days=horizon_days)
+        future = transactions[
+            (transactions["InvoiceDate"] > cutoff)
+            & (transactions["InvoiceDate"] <= horizon_end)
+        ]
+        buyers_in_window = set(future["Customer ID"].unique())
+
+        df = rfm_df.copy()
+        df["CHURN"] = (~df["Customer ID"].isin(buyers_in_window)).astype(int)
+
+        churned = int(df["CHURN"].sum())
+        total = len(df)
+        churn_rate = churned / total * 100 if total else 0.0
+
+        self._report = {
+            "threshold_days": horizon_days,
+            "cutoff": str(pd.Timestamp(cutoff).date()),
+            "total_customers": total,
+            "churned": churned,
+            "active": total - churned,
+            "churn_rate_pct": round(churn_rate, 2),
+            "imbalance_ratio": round((total - churned) / churned, 2) if churned > 0 else None,
+        }
+
+        logger.info(
+            f"Etiqueta por ventana futura | corte: {cutoff.date()} | "
+            f"horizonte: {horizon_days}d | Churn: {churned:,} ({churn_rate:.1f}%)"
+        )
+        return df
+
     def print_report(self) -> None:
         """Imprime el reporte de distribución de etiquetas."""
         if self._report is None:

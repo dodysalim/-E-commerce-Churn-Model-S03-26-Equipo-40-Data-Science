@@ -113,8 +113,15 @@ def run():
     Path("data/interim").mkdir(parents=True, exist_ok=True)
     clean_df.to_parquet("data/interim/cleaned_transactions.parquet", index=False)
 
-    rfm_builder = RFMBuilder(apply_log_transform=True)
-    rfm_df = rfm_builder.build(clean_df)
+    # Features solo con transacciones hasta el corte: el periodo de
+    # predicción (después del corte) no debe filtrarse a las features.
+    cutoff = pd.Timestamp(churn_cfg["cutoff_date"])
+    horizon_days = churn_cfg["horizon_days"]
+    observed_df = clean_df[clean_df["InvoiceDate"] <= cutoff]
+    logger.info(f"Periodo observado hasta {cutoff.date()} ({len(observed_df):,} transacciones)")
+
+    rfm_builder = RFMBuilder(snapshot_date=cutoff, apply_log_transform=True)
+    rfm_df = rfm_builder.build(observed_df)
 
     # ──────────────────────────────────────────────────────────────
     # PASO 3: Features avanzadas
@@ -122,15 +129,15 @@ def run():
     logger.info("\n⚙️  [3/7] Generando features avanzadas de comportamiento...")
 
     feature_engineer = AdvancedFeatureEngineer()
-    rfm_enriched = feature_engineer.build(clean_df, rfm_df)
+    rfm_enriched = feature_engineer.build(observed_df, rfm_df)
 
     # ──────────────────────────────────────────────────────────────
-    # PASO 4: Etiquetado de Churn
+    # PASO 4: Etiquetado de Churn (ventana futura)
     # ──────────────────────────────────────────────────────────────
-    logger.info(f"\n🏷️  [4/7] Etiquetando Churn (umbral: {churn_cfg['inactivity_threshold_days']} días)...")
+    logger.info(f"\n🏷️  [4/7] Etiquetando Churn (sin compra en {horizon_days} días tras {cutoff.date()})...")
 
-    labeler = ChurnLabeler(threshold_days=churn_cfg["inactivity_threshold_days"])
-    df_labeled = labeler.transform(rfm_enriched)
+    labeler = ChurnLabeler(threshold_days=horizon_days)
+    df_labeled = labeler.label_future_window(clean_df, rfm_enriched, cutoff, horizon_days)
     labeler.print_report()
 
     # Guardar estado intermedio
