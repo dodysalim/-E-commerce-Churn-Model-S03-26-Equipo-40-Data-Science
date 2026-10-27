@@ -9,8 +9,9 @@ import streamlit as st
 # ──────────────────────────────────────────────
 #  DEMO DATA — se activa si Supabase no responde
 # ──────────────────────────────────────────────
+@st.cache_data(show_spinner=False)
 def _generate_demo_data():
-    """Genera datos realistas para demostración offline."""
+    """Genera datos realistas para demostración offline (cacheado: es costoso en cada rerun)."""
     rng = np.random.default_rng(42)
     N = 800
 

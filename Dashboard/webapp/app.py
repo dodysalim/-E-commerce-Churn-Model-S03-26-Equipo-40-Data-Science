@@ -136,26 +136,27 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Precargar datos en session_state ─────────────────────────────────────────
-with st.spinner("Inicializando plataforma de datos…"):
-    repo = get_repository()
+# ── Precargar datos en session_state (solo la primera vez por sesión) ────────
+if "data_mode" not in st.session_state:
+    with st.spinner("Inicializando plataforma de datos…"):
+        repo = get_repository()
 
-    df_dist   = repo.fetch_table("v_customer_distribution")
-    df_global = repo.fetch_table("v_global_metrics")
-    df_risk   = repo.fetch_table("v_value_risk_matrix")
-    df_vips   = repo.fetch_table("v_vips_at_risk")
+        df_dist   = repo.fetch_table("v_customer_distribution")
+        df_global = repo.fetch_table("v_global_metrics")
+        df_risk   = repo.fetch_table("v_value_risk_matrix")
+        df_vips   = repo.fetch_table("v_vips_at_risk")
 
-    # Fallback a datos demo si Supabase no está disponible
-    if df_dist.empty or df_global.empty or df_risk.empty:
-        df_dist, df_global, df_risk, df_vips = _generate_demo_data()
-        st.session_state["data_mode"] = "demo"
-    else:
-        st.session_state["data_mode"] = "supabase"
+        # Fallback a datos demo si Supabase no está disponible
+        if df_dist.empty or df_global.empty or df_risk.empty:
+            df_dist, df_global, df_risk, df_vips = _generate_demo_data()
+            st.session_state["data_mode"] = "demo"
+        else:
+            st.session_state["data_mode"] = "supabase"
 
-    st.session_state["df_global"] = df_global
-    st.session_state["df_dist"]   = df_dist
-    st.session_state["df_risk"]   = df_risk
-    st.session_state["df_vips"]   = df_vips
+        st.session_state["df_global"] = df_global
+        st.session_state["df_dist"]   = df_dist
+        st.session_state["df_risk"]   = df_risk
+        st.session_state["df_vips"]   = df_vips
 
 if st.session_state.get("data_mode") == "demo":
     st.warning("DEMOSTRACIÓN · datos sintéticos; no son predicciones ni resultados comerciales reales.")
