@@ -53,6 +53,19 @@ from src.export.supabase_connector import SupabaseConnector
 from src.export.csv_exporter import CSVExporter
 
 
+ORIGINAL_UNIT_COLUMNS = ["Recency", "Frequency", "Monetary", "AvgTicket", "DaysBetweenPurchases",
+                         "MonetaryStdDev", "UniqueProducts"]
+
+
+def restore_original_units(df_final, df_original, key: str = "Customer ID"):
+    """Reemplaza las columnas escaladas por sus valores originales, alineando por cliente."""
+    cols = [c for c in ORIGINAL_UNIT_COLUMNS if c in df_original.columns and c in df_final.columns]
+    original = df_original.set_index(key)[cols]
+    out = df_final.copy()
+    out[cols] = original.reindex(out[key]).to_numpy()
+    return out
+
+
 def load_config() -> dict:
     """Carga la configuración centralizada del proyecto."""
     config_path = PROJECT_ROOT / "config" / "config.yaml"
@@ -219,9 +232,9 @@ def run():
     )
     df_final = rfm_segmenter.transform(df_segmented)
 
-    # Añadir Monetary original (sin escalar) para exportación
-    if "Monetary" not in df_final.columns:
-        df_final["Monetary"] = df_labeled["Monetary"].values
+    # Restaurar métricas en unidades originales (días, compras, £) para exportación.
+    # El modelado trabaja con valores escalados; los dashboards y Supabase necesitan los reales.
+    df_final = restore_original_units(df_final, df_labeled)
 
     # Perfilado narrativo
     profiler = CustomerProfiler()
