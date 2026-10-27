@@ -54,7 +54,7 @@
 
 | Columna | Valores | Descripción |
 |---------|---------|-------------|
-| `CHURN` | `0`, `1` | `1` si Recency > 90 días (inactivo), `0` si activo |
+| `CHURN` | `0`, `1` | `1` si no compra en los 90 días posteriores al corte (2011-09-09), `0` si compra en esa ventana |
 
 ### Segmentación (`data/processed/final_customer_results.parquet`)
 

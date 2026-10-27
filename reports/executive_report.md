@@ -9,11 +9,11 @@
 
 | Indicador | Valor | Estado |
 |-----------|-------|--------|
-| Total de clientes analizados | 5,878 | — |
-| Tasa de churn global | 50.9% | 🔴 Alta |
-| Clientes en Riesgo Muy Alto | 2,989 (50.9%) | 🔴 Acción inmediata |
-| Exposición monetaria (Alto) | £3,301,723 | 🔴 Crítico |
-| Clientes VIP en riesgo | 319 | 🔴 Urgente |
+| Total de clientes analizados | 5,278 | — |
+| Tasa de churn global | 56.8% | 🔴 Alta |
+| Clientes en Riesgo Muy Alto | 1,771 (33.6%) | 🔴 Acción inmediata |
+| Exposición monetaria (Alto) | £1,156,999 | 🔴 Crítico |
+| Clientes VIP en riesgo | 538 | 🔴 Urgente |
 
 ## 🎯 Acciones Inmediatas Recomendadas
 

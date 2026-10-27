@@ -27,7 +27,7 @@ Clientes con `AvgTicket` > £50 tienen un 40% menos de probabilidad de churn que
 ## 🎯 Estrategias por Segmento
 
 ### 🔴 Riesgo Muy Alto (ChurnProbability ≥ 70%)
-**Perfil:** Cliente inactivo >90 días, Recency > Frequency desbalanceado.  
+**Perfil:** Cliente sin compras en los 90 días posteriores al corte, Recency > Frequency desbalanceado.  
 **Ventana de acción:** Máximo 2 semanas antes de que el costo de reactivación sea mayor al LTV.
 
 | Acción | Canal | Timing | KPI de Éxito |
@@ -88,7 +88,7 @@ Clientes con `AvgTicket` > £50 tienen un 40% menos de probabilidad de churn que
 1. **Re-entrenar el modelo mensualmente** con los últimos 12 meses de datos.
 2. **Monitorear data drift** con `monitoring/drift_detector.py` tras cada lote de datos nuevos.
 3. **A/B Testing** en las campañas de reactivación: medir qué descuento (20% vs 30%) maximiza ROI.
-4. **Actualizar el umbral de Churn** (90 días) tras cada temporada alta — el comportamiento post-Navidad cambia la distribución de Recency.
+4. **Actualizar la fecha de corte y el horizonte de Churn** (90 días) tras cada temporada alta — el comportamiento post-Navidad cambia la distribución de compras.
 
 ---
 

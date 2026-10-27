@@ -49,10 +49,10 @@ El modelo está diseñado para **identificar proactivamente clientes en riesgo d
 
 | Métrica | Valor | Significado |
 |---------|-------|-------------|
-| **Recall** *(prioritaria)* | ~0.87+ | El modelo detecta el 87%+ de churners reales |
-| **F1-Score** | ~0.82+ | Balance entre precisión y recall |
-| **ROC-AUC** | ~0.91+ | Discriminación general del modelo |
-| **Accuracy** | ~0.85+ | Corrección global de predicciones |
+| **Recall** *(prioritaria)* | 0.78 | El modelo detecta el 78% de churners reales (test) |
+| **F1-Score** | 0.77 | Balance entre precisión y recall (test) |
+| **ROC-AUC** | 0.79 | Discriminación general del modelo (test) |
+| **Accuracy** | 0.74 | Corrección global de predicciones (test) |
 
 > [!NOTE]
 > Los valores exactos actualizados se encuentran en `reports/metrics.md` tras cada ejecución del pipeline.
@@ -70,9 +70,9 @@ En churn prediction, el **falso negativo** (no detectar un churner real) es más
 | **Fuente** | [UCI ML Repository — Online Retail II](https://archive.ics.uci.edu/dataset/502/online+retail+ii) |
 | **Cobertura temporal** | Dic 2009 – Dic 2011 |
 | **País principal** | United Kingdom (~90% de transacciones) |
-| **Clientes únicos** | ~4,300 (tras limpieza) |
+| **Clientes únicos** | 5,278 (con compra antes del corte 2011-09-09) |
 | **Transacciones** | ~1,000,000 (raw) → ~750,000 (post-limpieza) |
-| **Target** | `CHURN = 1` si inactivo > 90 días |
+| **Target** | `CHURN = 1` si no compra en los 90 días posteriores al corte 2011-09-09 (ventana futura; no usa `Recency`) |
 | **Datos sensibles** | No contiene datos demográficos, únicamente comportamentales (RFM) |
 
 ### Limitaciones del dataset
