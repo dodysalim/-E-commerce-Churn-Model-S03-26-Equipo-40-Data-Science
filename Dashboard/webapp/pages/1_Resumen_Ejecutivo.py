@@ -84,12 +84,12 @@ col1, col2, col3 = st.columns(3)
 
 with col1:
     fig = ChartFactory.pie(df_d, "customer_level", "avg_monetary", "💰 LTV por Segmento")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     fig = ChartFactory.bar(df_d, "customer_level", "customer_count", "customer_level",
                            "👥 Volumen de Clientes por Cohorte")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col3:
     mock_dates = pd.date_range(end=pd.Timestamp.today(), periods=6, freq="ME")
@@ -98,7 +98,7 @@ with col3:
         "Churn Rate": [4.8, 4.6, 4.5, 4.3, 4.3, round(churn, 1)],
     })
     fig = ChartFactory.area(mock_trend, "Mes", "Churn Rate", title="📉 Escenario ilustrativo de churn (simulado)")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 # ── Charts Row 2 ──────────────────────────────────────────────────────────────
 UIComponents.section("Análisis de Correlación y Salud")
@@ -107,11 +107,11 @@ col4, col5 = st.columns([2, 1])
 with col4:
     fig = ChartFactory.scatter(df_d, "avg_monetary", "avg_churn_risk_pct", "customer_count",
                                "customer_level", "🔴 Correlación LTV vs Riesgo de Deserción")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col5:
     fig = ChartFactory.gauge(churn, "Índice de Salud de Retención", max_val=20, color="#4F46E5")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 # ── Insight ───────────────────────────────────────────────────────────────────
 UIComponents.insight(

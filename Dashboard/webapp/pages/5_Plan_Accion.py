@@ -110,7 +110,7 @@ with st.container(border=True):
             })
             .background_gradient(subset=["churn_risk_pct"], cmap="Reds")
         )
-        st.dataframe(display_df, height=380, use_container_width=True)
+        st.dataframe(display_df, height=380, width="stretch")
 
     with col2:
         df_group = df_v.groupby(["risk_segment", "Estrategia"]).size().reset_index(name="count")
@@ -120,7 +120,7 @@ with st.container(border=True):
             title="☀️ Distribución de Estrategias por Severidad",
             color="count", color_continuous_scale="Reds",
         )
-        st.plotly_chart(Theme.update_fig_layout(fig_s, height=380), use_container_width=True)
+        st.plotly_chart(Theme.update_fig_layout(fig_s, height=380), width="stretch")
 
 # ── Charts Row 2 ──────────────────────────────────────────────────────────────
 UIComponents.section("Análisis de Valor Rescatable y ROI")
@@ -129,7 +129,7 @@ c4, c5, c6 = st.columns(3)
 with c4:
     fig = ChartFactory.gauge(len(df_v), "VIPs en Alerta Roja",
                              max_val=max(len(df_vips), 100), color="#EF4444")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with c5:
     df_agg = df_v.groupby("Estrategia")[["lifetime_value", "ROI_Estimado"]].sum().reset_index()
@@ -138,12 +138,12 @@ with c5:
     fig = px.bar(df_melt, x="Estrategia", y="USD", color="Tipo", barmode="group",
                  title="💼 Valor Salvable vs ROI por Canal",
                  color_discrete_sequence=["#4F46E5", "#10B981"])
-    st.plotly_chart(Theme.update_fig_layout(fig), use_container_width=True)
+    st.plotly_chart(Theme.update_fig_layout(fig), width="stretch")
 
 with c6:
     fig = ChartFactory.pie(df_v, "Estrategia", "lifetime_value",
                            "🥧 Distribución Capital de Rescate")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 # ── ROI Summary ───────────────────────────────────────────────────────────────
 UIComponents.section("Proyección de Retorno 90 Días")

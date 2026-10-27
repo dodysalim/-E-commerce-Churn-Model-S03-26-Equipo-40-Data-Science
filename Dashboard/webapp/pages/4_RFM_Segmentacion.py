@@ -75,11 +75,11 @@ with col_left:
             "customer_count", "customer_level",
             "🔻 Embudo Demográfico por Cohorte"
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     score_cnt = df_f.groupby("rfm_score").size().reset_index(name="Clientes")
     fig = ChartFactory.bar(score_cnt, "rfm_score", "Clientes", title="📊 Densidad por Puntaje RFM")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     fig_s = px.sunburst(
         df_f, path=["risk_segment", "customer_level"],
@@ -87,7 +87,7 @@ with col_left:
         title="☀️ Sunburst: Valor por Segmento",
         color="monetary", color_continuous_scale="Viridis",
     )
-    st.plotly_chart(Theme.update_fig_layout(fig_s), use_container_width=True)
+    st.plotly_chart(Theme.update_fig_layout(fig_s), width="stretch")
 
 with col_right:
     UIComponents.section("Cubo RFM 3D — Mapa de Clustering")
@@ -109,19 +109,19 @@ with col_right:
         font_color=Theme.TEXT_COLOR,
         height=460,
     )
-    st.plotly_chart(fig_3d, use_container_width=True)
+    st.plotly_chart(fig_3d, width="stretch")
 
     c_sub1, c_sub2 = st.columns(2)
     with c_sub1:
         fig = ChartFactory.scatter(df_f, "recency", "frequency", None, "risk_segment",
                                    "📐 Recencia vs Frecuencia")
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     with c_sub2:
         fig_bx = px.box(df_f, x="customer_level", y="monetary",
                         color="risk_segment",
                         title="📦 Dispersión LTV por Nivel",
                         color_discrete_sequence=Theme.COLORS)
-        st.plotly_chart(Theme.update_fig_layout(fig_bx), use_container_width=True)
+        st.plotly_chart(Theme.update_fig_layout(fig_bx), width="stretch")
 
 # ── Insight ───────────────────────────────────────────────────────────────────
 UIComponents.insight(

@@ -1,5 +1,5 @@
 # Dependencias livianas del dashboard (Streamlit Cloud las usa antes que las de la raíz)
-streamlit>=1.32.0
+streamlit>=1.66.1
 pandas>=2.2.0
 numpy>=1.26.0
 plotly>=5.18.0

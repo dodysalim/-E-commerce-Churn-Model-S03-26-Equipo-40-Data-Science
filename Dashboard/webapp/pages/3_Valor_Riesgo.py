@@ -76,7 +76,7 @@ with col1:
     fig = ChartFactory.treemap(df_r, [px.Constant("Portafolio"), "risk_segment", "customer_level"],
                                "monetary", "churn_probability",
                                "🗺️ Treemap: Valor Expuesto por Zona de Riesgo")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     df_radar = df_r.groupby("risk_segment")[["monetary", "recency", "frequency"]].mean()
@@ -106,7 +106,7 @@ with col2:
             title="📡 Polígono de Severidad por Segmento", height=340,
             title_font=dict(size=13),
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 # ── Charts Row 2 ──────────────────────────────────────────────────────────────
 UIComponents.section("Proyección Financiera")
@@ -132,19 +132,19 @@ with col3:
     ))
     fig_w.update_layout(title="💧 Cascada de Exposición LTV", height=340,
                         title_font=dict(size=13))
-    st.plotly_chart(Theme.update_fig_layout(fig_w), use_container_width=True)
+    st.plotly_chart(Theme.update_fig_layout(fig_w), width="stretch")
 
 with col4:
     fig = ChartFactory.area(df_r.sort_values("churn_probability"),
                             "churn_probability", "monetary", "risk_segment",
                             "📈 Área: Valor Acumulado vs Probabilidad de Fuga")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col5:
     df_bars = df_r.groupby("risk_segment")["monetary"].sum().reset_index()
     fig = ChartFactory.bar(df_bars, "risk_segment", "monetary", "risk_segment",
                            "💼 LTV Total por Nivel de Riesgo")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 UIComponents.insight(
     f"La cartera total en análisis es de <b>${total_exp:,.0f}</b>. "

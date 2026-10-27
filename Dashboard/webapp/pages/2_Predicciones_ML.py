@@ -72,7 +72,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     fig = ChartFactory.scatter(df_r, "frequency", "churn_probability", None, "risk_segment",
                                "📈 Frecuencia vs Probabilidad de Fuga")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col2:
     shap_df = pd.DataFrame({
@@ -82,12 +82,12 @@ with col2:
     })
     fig = ChartFactory.horizontal_bar(shap_df, "Importancia SHAP", "Feature",
                                       title="🧠 Feature Importance (SHAP)")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col3:
     fig = px.violin(df_r, y="churn_probability", color="customer_level",
                     box=True, title="🎻 Densidad de Churn por Nivel")
-    st.plotly_chart(Theme.update_fig_layout(fig), use_container_width=True)
+    st.plotly_chart(Theme.update_fig_layout(fig), width="stretch")
 
 # ── Charts Row 2 ──────────────────────────────────────────────────────────────
 UIComponents.section("Distribución de Probabilidades y Densidad")
@@ -96,13 +96,13 @@ col4, col5 = st.columns([1, 1.5])
 with col4:
     fig = ChartFactory.heatmap(df_r, "rfm_score", "churn_probability", "monetary",
                                "🔥 Densidad LTV por Score RFM vs Churn")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with col5:
     fig = px.histogram(df_r, x="churn_probability", color="risk_segment", nbins=30,
                        title="📊 Histograma de Probabilidades de Abandono",
                        marginal="rug", barmode="overlay", opacity=0.7)
-    st.plotly_chart(Theme.update_fig_layout(fig), use_container_width=True)
+    st.plotly_chart(Theme.update_fig_layout(fig), width="stretch")
 
 # ── Model metrics callout ─────────────────────────────────────────────────────
 UIComponents.section("Rendimiento del Modelo (Validación Cruzada)")
