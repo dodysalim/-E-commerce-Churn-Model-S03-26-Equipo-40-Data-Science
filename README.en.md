@@ -4,6 +4,8 @@
 
 <p align="center"><b>From purchase behavior to risk segments and retention scenarios.</b></p>
 
+<p align="center"><a href="https://churnmodel2026.streamlit.app/"><b>Live demo ↗</b></a></p>
+
 <p align="center"><img src="https://img.shields.io/badge/No_Country_·_Team_40_·_March_2026-75E6CE?style=for-the-badge&labelColor=0b1222" alt="No Country · Team 40 · March 2026"></p>
 
 <p align="center">
