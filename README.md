@@ -16,7 +16,7 @@
 <a href="https://github.com/dodysalim/-E-commerce-Churn-Model-S03-26-Equipo-40-Data-Science/actions"><img src="https://github.com/dodysalim/-E-commerce-Churn-Model-S03-26-Equipo-40-Data-Science/actions/workflows/ci_pipeline.yml/badge.svg" alt="CI"></a> <img src="https://img.shields.io/badge/versión-1.1.0-8F7BFF?style=flat-square" alt="Versión 1.1.0">
 </p>
 
-<p align="center"><a href="https://nocountry.tech/showcase/simulacion-laboral-marzo-2026/equipo-40-data-science"><b>🏆 Showcase No Country</b></a> · <a href="https://dodysalim.github.io/"><b>🌐 Portafolio</b></a> · <a href="docs/PORTFOLIO_CASE.md"><b>📄 Caso de estudio</b></a></p>
+<p align="center"><a href="https://nocountry.tech/showcase/simulacion-laboral-marzo-2026/equipo-40-data-science"><b>🏆 Showcase No Country</b></a> · <a href="https://dodysalim.github.io/"><b>🌐 Portafolio</b></a> · <a href="docs/PORTFOLIO_CASE.md"><b>📄 Caso de estudio</b></a> · <a href="README.en.md"><b>🇺🇸 English</b></a></p>
 
 ---
 
@@ -39,6 +39,22 @@
 - Preprocesamiento de transacciones, RFM y etiquetado de churn.
 - Pipelines de entrenamiento, evaluación y exportación.
 - Dashboard de cinco vistas, con demostración sintética identificada.
+
+## 🏗️ Arquitectura
+
+```mermaid
+flowchart LR
+    RAW[(Online Retail II)] --> DATA[data<br/>loader · validator]
+    DATA --> PRE[preprocessing] --> LAB[churn_label]
+    LAB --> FE[features<br/>RFM] --> MOD[modeling<br/>XGBoost + SHAP]
+    FE --> SEG[segmentation]
+    MOD --> EXP[export]
+    SEG --> EXP
+    EXP --> SB[(Supabase)]
+    SB --> UI[Dashboard Streamlit<br/>5 páginas]
+    DEMO[Modo demo<br/>800 clientes sintéticos] -.-> UI
+    SB --> PBI[Power BI]
+```
 
 ## 🚀 Cómo ejecutarlo
 
