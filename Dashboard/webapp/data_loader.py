@@ -115,6 +115,12 @@ class SupabaseRepository:
                 raise ValueError("churn_probability must be in [0, 1] in the SQL source")
 
 
+@st.cache_resource(show_spinner=False)
+def _build_repository(url: str, key: str) -> SupabaseRepository:
+    """Crea el cliente una sola vez por proceso; Streamlit reejecuta el script en cada interacción."""
+    return SupabaseRepository(url, key).connect()
+
+
 def get_repository() -> SupabaseRepository:
     load_dotenv(Path(__file__).resolve().parents[2] / ".env")
     url = os.getenv("SUPABASE_URL", "")
@@ -124,4 +130,4 @@ def get_repository() -> SupabaseRepository:
         key = st.secrets.get("SUPABASE_KEY", key)
     except (FileNotFoundError, st.errors.StreamlitSecretNotFoundError):
         pass
-    return SupabaseRepository(url, key).connect()
+    return _build_repository(url, key)
