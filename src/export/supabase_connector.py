@@ -137,6 +137,8 @@ class SupabaseConnector:
         export_df = df[columns_to_export].copy()
         if "Customer ID" in export_df.columns:
             export_df = export_df.rename(columns={"Customer ID": "customer_id"})
+            # El ID llega como float (12346.0) por valores nulos en la fuente; debe ser "12346"
+            export_df["customer_id"] = export_df["customer_id"].astype("Int64").astype(str)
 
         # Convertir CamelCase a snake_case de forma robusta
         import re
