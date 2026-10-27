@@ -2,9 +2,10 @@
 -- Vistas Optimizadas para Power BI — Churn Prediction
 -- Equipo 40 — No Country
 -- ============================================================
+-- security_invoker: las vistas respetan las políticas RLS de la tabla base.
 
 -- ─── 1. Resumen Ejecutivo por Segmento de Riesgo ────────────
-CREATE OR REPLACE VIEW v_executive_churn_summary AS
+CREATE OR REPLACE VIEW v_executive_churn_summary WITH (security_invoker = true) AS
 SELECT
     risk_segment,
     COUNT(*)                                          AS total_customers,
@@ -17,7 +18,7 @@ GROUP BY risk_segment
 ORDER BY avg_churn_risk_pct DESC;
 
 -- ─── 2. Matriz Valor vs Riesgo (Scatter Chart en Power BI) ──
-CREATE OR REPLACE VIEW v_value_risk_matrix AS
+CREATE OR REPLACE VIEW v_value_risk_matrix WITH (security_invoker = true) AS
 SELECT
     customer_id,
     customer_level,
@@ -30,7 +31,7 @@ SELECT
 FROM customer_churn_results;
 
 -- ─── 3. Clientes VIP en Zona de Riesgo ──────────────────────
-CREATE OR REPLACE VIEW v_vips_at_risk AS
+CREATE OR REPLACE VIEW v_vips_at_risk WITH (security_invoker = true) AS
 SELECT
     customer_id,
     risk_segment,
@@ -45,7 +46,7 @@ WHERE customer_level = 'VIP / Champion'
 ORDER BY churn_probability DESC, monetary DESC;
 
 -- ─── 4. Top 50 Clientes Prioritarios para Retención ─────────
-CREATE OR REPLACE VIEW v_top_priority_customers AS
+CREATE OR REPLACE VIEW v_top_priority_customers WITH (security_invoker = true) AS
 SELECT
     customer_id,
     customer_level,
@@ -61,7 +62,7 @@ ORDER BY expected_loss DESC
 LIMIT 50;
 
 -- ─── 5. Distribución de Clientes por Nivel y Segmento ───────
-CREATE OR REPLACE VIEW v_customer_distribution AS
+CREATE OR REPLACE VIEW v_customer_distribution WITH (security_invoker = true) AS
 SELECT
     customer_level,
     risk_segment,
@@ -74,7 +75,7 @@ GROUP BY customer_level, risk_segment
 ORDER BY customer_level, risk_segment;
 
 -- ─── 6. Métricas Globales del Modelo (para KPI Banner) ───────
-CREATE OR REPLACE VIEW v_global_metrics AS
+CREATE OR REPLACE VIEW v_global_metrics WITH (security_invoker = true) AS
 SELECT
     COUNT(*)                                            AS total_customers_analyzed,
     SUM(churn)                                          AS total_churned,
